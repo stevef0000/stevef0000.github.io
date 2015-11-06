@@ -79,9 +79,9 @@ function RecordCtrl ($scope, $http) {
               $scope.msg = 'Data saved';
             });*/
 //https://content.dropboxapi.com/1/files_put/auto/<path>?param=val
-           // $http.post('assets/js/data.json', $scope.languages).then(function(data) {
+           $http.post('assets/js/data.json', $scope.languages).then(function(data) {
             
-            $http.post('https://content.dropboxapi.com/1/files_put/auto/assets/js/data.json?param=$scope.languages').then(function(data) {
+           // $http.post('https://content.dropboxapi.com/1/files_put/auto/assets/js/data.json?param=$scope.languages').then(function(data) {
               $scope.msg = 'Data saved: ' + JSON.stringify($scope.languages);
             });
             //$scope.msg = 'Data sent: '+ JSON.stringify($scope.languages);
