@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <title>Add / List Data (AngularJS)</title>
+    <style>
+	    .list_data { margin-bottom: 2rem }
+	    table, th, td { border: 1px solid #AAA }
+	    th { cursor: pointer }
+    </style>
+</head>
+  
+<body ng-controller="RecordCtrl">
+    <div class="list_data">
+        <h1>List Data</h1>
+        <table>
+            <tr>
+                <th ng-click="type = 'include'; reverse = !reverse">Status</th>
+                <th ng-click="type = 'state'; reverse = !reverse">State</th>
+                <th ng-click="type = 'price'; reverse = !reverse">Price</th>
+                <th ng-click="type = 'tax'; reverse = !reverse">Tax</th>
+                <th>Action</th>
+            </tr>
+            <tr ng-repeat="record in records | orderBy:type:reverse">
+                <td><input type="checkbox" ng-model="record.include"></td>
+                <td>{{record.state | uppercase}}</td>
+                <td>{{record.price | currency}}</td>
+                <td>{{record.tax | currency}}</td>
+                <td><button ng-click="Delete($index)">Delete</button></td>
+            </tr>
+            <tr>
+                <td colspan="2">Total</td>
+                <td>{{Totals().price | currency}}</td>
+                <td>{{Totals().tax | currency}}</td>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+        <button ng-show="history.length > 0" ng-click="Undo()">Undo Delete</button>
+    </div>
+  
+    <div class="add_data">
+        <h1>Add Data</h1>
+        <form ng-submit="Add()">
+            <div class="field">
+                <label for="state">State: </label>
+                <input id="state" type="text" placeholder="State" maxlength="2" ng-model="newState">
+            </div>
+            <div class="field">
+                <label for="price">Price: </label>
+                <input id="price" type="number" placeholder="Price" min="0" ng-model="newPrice">
+            </div>
+            <div class="field">
+                <label for="tax">Tax: </label>
+                <input id="tax" type="number" placeholder="Tax" min="0" ng-model="newTax">
+            </div>
+            <div class="action">
+                <button type="submit">Add</button>
+                <button ng-click="Reset()">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <p></p>
+
+<!--
+    <form>
+    <div ng-repeat="lang in languages track by $index">
+      <label>{{lang.name}}</label>
+      <input type="range" min="0" max="4" ng-model="lang.value" >
+    </div>
+    <button ng-click="save()">Save</button>
+    <p>{{msg}}</p>
+	</form>
+	-->
+
+<!--
+		<ul>
+			<li ng-repeat="lang in languages track by $index">
+			{{lang.text}} - <em>{{lang.done}}</em>
+			</li>
+		</ul>
+		-->
+
+		<form>
+			<div ng-repeat="lang in languages track by $index">
+			<label>{{lang.text}}</label>
+			<input type="range" min="0" max="5" ng-model="lang.value" >
+			</div>
+			<button ng-click="save()">Save</button>
+		</form>
+
+ <p>{{msg}}</p>
+
+
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.11/angular.min.js"></script>
+	<script src="assets\js\controllers.js"></script>
+	<script src="https://www.dropbox.com/static/api/dropbox-datastores-1.2-latest.js" type="text/javascript"></script>
+</body>
+</html>
+
